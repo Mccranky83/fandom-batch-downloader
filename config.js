@@ -5,13 +5,20 @@ import path from "node:path";
 export default class {
   constructor() {
     this.__dirname = path.dirname(url.fileURLToPath(import.meta.url));
+    this.base_url = "https://helltaker.fandom.com/wiki/Category:";
     this.paths = {
       profilesPath: this.setProfiles(),
     };
     this.launchOptions = {
-      headless: false,
+      headless: true,
       executablePath: "/Applications/Chromium.app/Contents/MacOS/Chromium",
       userDataDir: this.setUserDataDir(),
+      defaultViewport: {
+        width: 1440,
+        height: 900,
+        isMobile: false,
+        hasTouch: false,
+      },
     };
   }
 

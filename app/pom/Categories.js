@@ -11,7 +11,16 @@ export default class {
     let categories = [];
     const traverse = async (url = `${this.config.base_url}Content`) => {
       const page = await this.browser.newPage();
-      await page.goto(url, { waitUntil: "domcontentloaded" });
+      try {
+        await page.goto(url, {
+          waitUntil: "domcontentloaded",
+          timeout: 60_000,
+        });
+      } catch (e) {
+        console.error(e.message);
+        await page.close();
+        process.exit(1);
+      }
       try {
         // let lockfile = false;
         await Promise.all(

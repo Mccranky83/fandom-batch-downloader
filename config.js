@@ -10,7 +10,7 @@ export default class {
       profilesPath: this.setProfiles(),
     };
     this.launchOptions = {
-      headless: true,
+      headless: false,
       executablePath: "/Applications/Chromium.app/Contents/MacOS/Chromium",
       userDataDir: this.setUserDataDir(),
       defaultViewport: {

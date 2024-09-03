@@ -7,7 +7,8 @@ export default class {
   /**
    * Uncomment commented for linear traversal
    */
-  async getCategories() {
+  async fetchCategories() {
+    console.log("Fetching Categories...\n");
     let categories = [];
     const traverse = async (url = `${this.config.base_url}Content`) => {
       const page = await this.browser.newPage();

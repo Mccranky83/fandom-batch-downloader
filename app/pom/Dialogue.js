@@ -4,29 +4,32 @@ import { stdin as input, stdout as output } from "node:process";
 export default class {
   constructor(options) {
     this.options = options;
-  }
-  async selectIndex(selected = []) {
-    !this.selectIndex.f &&
-      (console.log("\n-- Select --"), (this.selectIndex.f = true));
-    const rl = readline.createInterface({ input, output });
-    rl.on("SIGINT", () => {
+    this.selected = [];
+    this.rl = readline.createInterface({ input, output });
+    this.rl.on("SIGINT", () => {
       console.log("\n\nInterupted. Exiting...\n");
       process.exit(0);
     });
-    const user_input = Number(await rl.question("\nPick a category (index): "));
+  }
+  async selectMode() {}
+  async selectIndex() {
+    !this.selectIndex.f &&
+      (console.log("\n-- Select --"), (this.selectIndex.f = true));
+    const user_input = Number(
+      await this.rl.question("\nPick a category (index): "),
+    );
     try {
       if (Number.isInteger(user_input)) {
         if (user_input > -1 && user_input < this.options.length) {
-          !selected.includes(user_input) && selected.push(user_input);
-          const flag = await rl.question(
+          !this.selected.includes(user_input) && this.selected.push(user_input);
+          const flag = await this.rl.question(
             "Do you want to pick another category? (y/N): ",
           );
           if (flag.toLowerCase() === "y") {
-            rl.close();
-            return await this.selectIndex(selected);
+            return await this.selectIndex();
           } else {
-            rl.close();
-            return selected;
+            this.rl.close();
+            return this.selected;
           }
         } else {
           throw new Error("Invalid index. Please enter a valid index.");
@@ -36,8 +39,7 @@ export default class {
       }
     } catch (e) {
       console.error(e.message);
-      rl.close();
-      return await this.selectIndex(selected);
+      return await this.selectIndex();
     }
   }
 }

@@ -31,7 +31,7 @@ export default class {
   }
 
   setProfiles() {
-    const profiles = path.resolve(this.__dirname, "profiles");
+    const profiles = path.resolve(this.__dirname, "..", "profiles");
     fs.mkdirSync(profiles, { recursive: true });
     return profiles;
   }

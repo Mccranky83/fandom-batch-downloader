@@ -10,7 +10,9 @@ export default class {
   async fetchCategories() {
     console.log("Fetching Categories...\n");
     let categories = [];
-    const traverse = async (url = `${this.config.base_url}Content`) => {
+    const category_base = `${this.config.base_url}Category:`;
+    const anchor = `${category_base}Content`;
+    const traverse = async (url = anchor) => {
       const page = await this.browser.newPage();
       try {
         await page.goto(url, {
@@ -36,7 +38,7 @@ export default class {
                 lockfile = true; */
                 if (!categories.includes(cur)) {
                   categories.push(cur);
-                  const new_url = `${this.config.base_url}${cur}`;
+                  const new_url = `${category_base}${cur}`;
                   await traverse(new_url);
                 }
                 // lockfile = false;

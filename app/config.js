@@ -5,7 +5,7 @@ import path from "node:path";
 export default class {
   constructor() {
     this.__dirname = path.dirname(url.fileURLToPath(import.meta.url));
-    this.base_url = "https://helltaker.fandom.com/wiki/Category:";
+    this.base_url = "https://helltaker.fandom.com/wiki/";
     this.paths = {
       profilesPath: this.setProfiles(),
     };
